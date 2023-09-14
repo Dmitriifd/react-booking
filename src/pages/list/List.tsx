@@ -34,7 +34,7 @@ const List = () => {
   const [options, setOptions] = useState((location.state as LocationState).options);
 
   console.log(location);
-  
+
 
   return (
     <>
