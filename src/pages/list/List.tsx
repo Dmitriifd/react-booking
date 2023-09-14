@@ -4,6 +4,7 @@ import { DateRange } from 'react-date-range';
 import { format } from 'date-fns';
 import Header from 'components/header/Header';
 import Navbar from 'components/navbar/Navbar';
+import SearchItem from 'components/searchItem/SearchItem';
 
 import './list.css';
 
@@ -31,6 +32,9 @@ const List = () => {
   const [date, setDate] = useState((location.state as any).date);
   const [openDate, setOpenDate] = useState(false);
   const [options, setOptions] = useState((location.state as LocationState).options);
+
+  console.log(location);
+  
 
   return (
     <>
@@ -106,6 +110,9 @@ const List = () => {
             <button>Search</button>
           </div>
           <div className="listResult">
+            {Array.from({ length: 8 }).map((_, i) => (
+              <SearchItem key={i}/>
+            ))}
           </div>
         </div>
       </div>
