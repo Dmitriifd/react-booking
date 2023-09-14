@@ -1,9 +1,10 @@
-import "./home.css";
+import Navbar from 'components/navbar/Navbar';
+import './home.css';
 
 const Home = () => {
   return (
     <div>
-      Home Page
+      <Navbar />
     </div>
   );
 };
