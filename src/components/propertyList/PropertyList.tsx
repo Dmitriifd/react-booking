@@ -1,7 +1,7 @@
 import useFetch from 'hooks/useFetch';
+import { BASE_URL } from 'const';
 
 import './propertyList.css';
-import { BASE_URL } from 'const';
 
 type HotelType = {
   type: string;
