@@ -31,17 +31,16 @@ export interface Options {
 const List = () => {
   const location = useLocation();
   const [destination, setDestination] = useState((location.state as LocationState).destination);
+  const capitalizedStr = destination.replace(/^\w/, (c) => c.toUpperCase());
   const [dates, setDate] = useState((location.state as any).dates);
   const [openDate, setOpenDate] = useState(false);
   const [options, setOptions] = useState((location.state as LocationState).options);
-  console.log(dates);
-  
 
   const [min, setMin] = useState('');
   const [max, setMax] = useState('');
 
   const { data, loading, error, reFetch } = useFetch(
-    `${BASE_URL}/hotels?city=${destination}&min=${min || 0}&max=${max || 999}`
+    `${BASE_URL}/hotels?city=${capitalizedStr}&min=${min || 0}&max=${max || 999}`
   );
 
   const handleClick = () => {
