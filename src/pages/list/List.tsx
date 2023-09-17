@@ -31,9 +31,11 @@ export interface Options {
 const List = () => {
   const location = useLocation();
   const [destination, setDestination] = useState((location.state as LocationState).destination);
-  const [dates, setDate] = useState((location.state as any).date);
+  const [dates, setDate] = useState((location.state as any).dates);
   const [openDate, setOpenDate] = useState(false);
   const [options, setOptions] = useState((location.state as LocationState).options);
+  console.log(dates);
+  
 
   const [min, setMin] = useState('');
   const [max, setMax] = useState('');

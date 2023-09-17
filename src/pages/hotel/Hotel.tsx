@@ -16,6 +16,7 @@ import useFetch from 'hooks/useFetch';
 import { AuthContext } from 'context/AuthContext';
 import { SearchContext } from 'context/SearchContext';
 import { BASE_URL } from 'const';
+import Reserve from 'components/reserve/Reserve';
 import './hotel.css';
 
 const Hotel = () => {
@@ -135,7 +136,7 @@ const Hotel = () => {
           <Footer />
         </div>
       )}
-      {/* {openModal && <Reserve setOpen={setOpenModal} hotelId={id} />} */}
+      {openModal && <Reserve setOpen={setOpenModal} hotelId={id} />}
     </div>
   );
 };

@@ -7,13 +7,15 @@ import {
   faTaxi
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { DateRange, DateRangePickerProps } from 'react-date-range';
 import { format } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
 import 'react-date-range/dist/theme/default.css';
 import 'react-date-range/dist/styles.css';
 import './header.css';
+import { SearchContext } from 'context/SearchContext';
+import { AuthContext } from 'context/AuthContext';
 
 type Options = {
   adult: number;
@@ -24,13 +26,14 @@ type Options = {
 const Header = ({ type = 'lists' }) => {
   const [destination, setDestination] = useState('');
   const [openDate, setOpenDate] = useState(false);
-  const [date, setDate] = useState<DateRangePickerProps['ranges']>([
+  const [dates, setDate] = useState<DateRangePickerProps['ranges']>([
     {
       startDate: new Date(),
       endDate: new Date(),
       key: 'selection'
     }
   ]);
+
   const [openOptions, setOpenOptions] = useState(false);
   const [options, setOptions] = useState({
     adult: 1,
@@ -39,6 +42,7 @@ const Header = ({ type = 'lists' }) => {
   });
 
   const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
 
   const handleOption = (name: keyof Options, operation: string) => {
     setOptions((prev) => {
@@ -49,9 +53,12 @@ const Header = ({ type = 'lists' }) => {
     });
   };
 
-  const handleSearch = () => {
-    navigate('/hotels', { state: { destination, date, options } });
-  };
+  const { dispatch } = useContext(SearchContext);
+
+   const handleSearch = () => {
+     dispatch({ type: 'NEW_SEARCH', payload: { destination, dates, options } });
+     navigate('/hotels', { state: { destination, dates, options } });
+   };
 
   return (
     <div className="header">
@@ -102,16 +109,16 @@ const Header = ({ type = 'lists' }) => {
                   onClick={() => setOpenDate(!openDate)}
                   className="headerSearchText">{`${format(
                   //@ts-ignore
-                  date[0].startDate,
+                  dates[0].startDate,
                   'MM/dd/yyyy'
                   //@ts-ignore
-                )} to ${format(date[0].endDate, 'MM/dd/yyyy')}`}</span>
+                )} to ${format(dates[0].endDate, 'MM/dd/yyyy')}`}</span>
                 {openDate && (
                   <DateRange
                     editableDateInputs={true}
                     onChange={(item) => setDate([item.selection])}
                     moveRangeOnFirstSelection={false}
-                    ranges={date}
+                    ranges={dates}
                     className="date"
                     minDate={new Date()}
                   />
