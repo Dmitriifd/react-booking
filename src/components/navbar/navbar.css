@@ -20,10 +20,13 @@
   text-decoration: none;
 }
 
-.navButton{
+.navButton {
   margin-left: 20px;
   border: none;
   padding: 5px 10px;
   cursor: pointer;
   color: #003580;
+  text-decoration: none;
+  background-color: white;
+  display: inline-block;
 }
